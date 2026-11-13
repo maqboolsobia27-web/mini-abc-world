@@ -1,0 +1,565 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mimi's Ultra Pro Max ABC World</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+ --pink:#ff65ad;--purple:#9b6bfa;--blue:#55c8f5;
+ --yellow:#ffd75e;--green:#55dca3;--ink:#62418b;
+}
+body{
+ font-family:'Fredoka',sans-serif;
+ min-height:100vh;padding:14px;color:var(--ink);
+ background:
+ radial-gradient(circle at 10% 15%,#fff4a8 0 5%,transparent 20%),
+ radial-gradient(circle at 90% 10%,#ffc9e9 0 7%,transparent 22%),
+ radial-gradient(circle at 5% 90%,#b8f5e1 0 8%,transparent 25%),
+ linear-gradient(135deg,#ffe2f2,#e5ddff,#c9f2ff,#d9ffe9);
+ background-size:200% 200%;
+ animation:bgMove 12s ease infinite;overflow-x:hidden;
+}
+@keyframes bgMove{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+button{font-family:inherit;cursor:pointer;border:0}
+button:disabled{opacity:.6;cursor:not-allowed}
+.app{
+ max-width:1050px;margin:auto;padding:20px;
+ border:6px solid white;border-radius:32px;
+ background:rgba(255,255,255,.94);
+ box-shadow:0 18px 55px #8256b633,0 0 0 5px #ffb8df55;
+ position:relative;overflow:hidden;
+}
+header{text-align:center;padding:10px 0 15px}
+.logo{
+ font-size:clamp(25px,6vw,43px);font-weight:700;
+ background:linear-gradient(90deg,#ff55a7,#a05bfa,#39bde9,#42c994);
+ -webkit-background-clip:text;background-clip:text;color:transparent;
+ filter:drop-shadow(2px 3px #ffd3eb);
+}
+.subtitle{color:#a47bbd;font-size:15px;margin-top:7px}
+.topbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:9px;margin:12px 0}
+.pill{
+ background:linear-gradient(135deg,#fff0a8,#ffe0ef);color:#a45b9b;
+ padding:10px 15px;border-radius:30px;font-size:13px;font-weight:700;
+ border:2px solid white;box-shadow:0 4px 10px #e7b7d955;
+}
+.soundBtn{
+ background:linear-gradient(135deg,#55d8f5,#438fe9);color:white;
+ padding:11px 16px;border-radius:15px;font-weight:700;box-shadow:0 5px #2775bd;
+}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0 19px}
+.stat{
+ color:white;text-align:center;padding:12px 4px;border:2px solid white;
+ border-radius:18px;background:linear-gradient(135deg,#ff9bcf,#f05aab);
+ box-shadow:0 5px #d83d91;
+}
+.stat:nth-child(2){background:linear-gradient(135deg,#c3a6ff,#8c61e9);box-shadow:0 5px #6944c4}
+.stat:nth-child(3){background:linear-gradient(135deg,#7ce4f6,#38addb);box-shadow:0 5px #2387b6}
+.stat:nth-child(4){background:linear-gradient(135deg,#ffe58a,#ffae40);box-shadow:0 5px #d58a24}
+.stat small{display:block;font-size:11px}
+.stat strong{font-size:23px}
+.tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin:18px 0}
+.tab{
+ padding:12px 16px;border-radius:16px;color:white;
+ background:linear-gradient(135deg,#b99aff,#8759e5);
+ box-shadow:0 5px #6740bd;font-size:14px;font-weight:700;transition:.2s;
+}
+.tab:hover{transform:translateY(-3px)}
+.tab.active{background:linear-gradient(135deg,#ff9acb,#ed4f9e);box-shadow:0 5px #bd3479}
+.screen{display:none}
+.screen.active{display:block;animation:appear .35s ease}
+@keyframes appear{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.panel{
+ text-align:center;padding:23px;border:4px solid white;border-radius:28px;
+ background:radial-gradient(circle at top left,#fff8b9,transparent 35%),
+ radial-gradient(circle at bottom right,#d6f5ff,transparent 40%),
+ linear-gradient(145deg,#fff0f8,#f1eaff);
+ box-shadow:0 9px 25px #a17acb33;
+}
+.teacher{font-size:60px;display:inline-block;animation:bob 2s ease-in-out infinite;filter:drop-shadow(0 7px 5px #a77a9d44)}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-10px) rotate(5deg)}}
+.teacherText{font-size:16px;color:#a16bb5;margin:6px 0 12px}
+.letter{font-size:clamp(90px,20vw,155px);font-weight:700;line-height:1.05;color:#ed55a8;text-shadow:5px 6px #ffc6e5;animation:letterPop .45s ease}
+@keyframes letterPop{0%{transform:scale(.5) rotate(-10deg);opacity:0}75%{transform:scale(1.12)}100%{transform:scale(1);opacity:1}}
+.picture{font-size:clamp(85px,18vw,130px);margin:8px;display:inline-block;animation:pictureFloat 2.5s ease-in-out infinite;filter:drop-shadow(0 9px 5px #8e75a333)}
+@keyframes pictureFloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-9px) rotate(3deg)}}
+.word{font-size:clamp(24px,6vw,37px);color:#9456d2;font-weight:700}
+.phonics{color:#d65a9e;font-size:18px;margin:9px;font-weight:600}
+.actions{display:flex;justify-content:center;flex-wrap:wrap;gap:11px;margin:16px 0}
+.btn{padding:13px 18px;border-radius:15px;color:white;font-size:14px;font-weight:700;background:linear-gradient(135deg,#ff94c9,#e94e9c);box-shadow:0 5px #b93679;transition:.2s}
+.btn:hover{transform:translateY(-3px);filter:brightness(1.05)}
+.btn.blue{background:linear-gradient(135deg,#75e5fa,#319fdd);box-shadow:0 5px #1875a6}
+.btn.green{background:linear-gradient(135deg,#8af0bd,#32bd83);box-shadow:0 5px #168453}
+.btn.yellow{background:linear-gradient(135deg,#ffe78a,#f5ad35);box-shadow:0 5px #bd7819}
+.btn.purple{background:linear-gradient(135deg,#c4a5ff,#8957df);box-shadow:0 5px #5939a9}
+.btn:active{transform:translateY(3px);box-shadow:none}
+.progressWrap{height:15px;background:#eadcfb;border-radius:20px;overflow:hidden;margin:16px 0 8px;border:2px solid white}
+.progress{height:100%;width:0%;background:linear-gradient(90deg,#ff79ba,#a77aff,#52d9d3,#79e99b);transition:width .35s;border-radius:20px}
+.gridTitle{text-align:center;color:#a05acb;margin:24px 0 12px}
+.alphabetGrid{display:grid;grid-template-columns:repeat(7,1fr);gap:9px}
+.letterBtn{border:2px solid white;border-radius:14px;padding:11px 2px;background:linear-gradient(145deg,#f7eaff,#e8e0ff);color:#8754bd;font-size:21px;font-weight:700;box-shadow:0 4px #d7c4ee;transition:.2s}
+.letterBtn:hover{transform:translateY(-3px) scale(1.04)}
+.letterBtn.learned{background:linear-gradient(135deg,#caffdf,#8debb9);color:#128653}
+.letterBtn.selected{background:linear-gradient(135deg,#ffb8df,#ff83c2);border-color:#ed65ad;transform:scale(1.06)}
+.sectionTitle{text-align:center;color:#a05acb;font-size:27px;margin-bottom:8px}
+.description{text-align:center;color:#a27da9;margin-bottom:18px}
+.question{font-size:clamp(21px,5vw,30px);color:#8c55c2;margin:18px 0}
+.quizPicture{font-size:95px;margin:12px}
+.options{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;max-width:500px;margin:17px auto}
+.option{padding:20px;background:linear-gradient(145deg,#fff,#f7edff);border:3px solid #e4d5fa;border-radius:19px;color:#8953bb;font-size:30px;font-weight:700;box-shadow:0 5px #d3c3eb;transition:.2s}
+.option:hover{transform:scale(1.04);background:#fff0fa}
+.option.correct{background:linear-gradient(135deg,#d8ffe9,#a8f2c8);border-color:#54ce91;color:#188b58}
+.option.wrong{background:linear-gradient(135deg,#ffe0e9,#ffc3d5);border-color:#fa87a5}
+.feedback{min-height:30px;font-size:20px;font-weight:700;margin:16px;color:#b35ab3}
+.memoryGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;max-width:550px;margin:22px auto}
+.memoryCard{min-height:105px;border-radius:18px;background:linear-gradient(135deg,#b997ff,#8154d9);color:white;font-size:34px;font-weight:700;box-shadow:0 5px #5d3ba8;border:3px solid white;transition:.2s}
+.memoryCard:hover{transform:translateY(-3px)}
+.memoryCard.flipped,.memoryCard.matched{background:linear-gradient(135deg,#fff,#f4eaff);color:#a34cc5;border:3px solid #e5d5fa}
+.memoryCard.matched{background:linear-gradient(135deg,#d7f8e6,#a9f0c9);border-color:#6bd3a1}
+.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
+.badgeCard{padding:17px 6px;border-radius:18px;background:linear-gradient(145deg,#fff5c9,#ffe2f1);border:3px solid white;text-align:center;color:#9b70c0;box-shadow:0 4px 12px #d5b4d933}
+.badgeCard span{font-size:39px;display:block}
+.badgeCard strong{font-size:14px}
+.badgeCard.locked{filter:grayscale(1);opacity:.5}
+.footer{text-align:center;margin:22px 0 5px;color:#a17da9;font-size:13px}
+.confetti{position:fixed;top:-20px;z-index:100;pointer-events:none;font-size:22px;animation:fall 2.5s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+.modal{display:none;position:fixed;inset:0;z-index:90;background:#35204fbb;align-items:center;justify-content:center;padding:20px}
+.modalBox{background:linear-gradient(145deg,#fff,#ffe6f4,#e9e3ff);padding:30px;border:5px solid white;border-radius:30px;max-width:380px;width:100%;text-align:center;box-shadow:0 15px 50px #0004}
+.modalBox h2{font-size:30px;color:#d74e9c}
+.modalBox p{margin:13px 0;color:#805b91;font-size:17px}
+@media(max-width:550px){
+ body{padding:7px}.app{padding:10px;border-radius:22px}
+ .stats{gap:6px}.stat strong{font-size:18px}.stat small{font-size:10px}
+ .tab{padding:10px 11px;font-size:12px}.panel{padding:14px}
+ .alphabetGrid{grid-template-columns:repeat(6,1fr);gap:6px}
+ .letterBtn{font-size:18px;padding:9px 2px}
+ .btn{padding:11px 12px;font-size:12px}
+ .memoryGrid{gap:7px}.memoryCard{min-height:75px;font-size:25px}
+ .badges{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <div class="logo">🐱 MIMI'S MAGICAL ABC WORLD</div>
+ <p class="subtitle">🌈 Learn • Listen • Play • Discover • Shine! ⭐</p>
+</header>
+<div class="topbar">
+ <div class="pill">👋 Hello, Little Learner!</div>
+ <button class="soundBtn" id="musicBtn">🎵 MUSIC ON</button>
+</div>
+<div class="stats">
+ <div class="stat"><small>⭐ MY STARS</small><strong id="stars">0</strong></div>
+ <div class="stat"><small>🔤 LEARNED</small><strong id="learned">0/26</strong></div>
+ <div class="stat"><small>🏆 QUIZ SCORE</small><strong id="score">0</strong></div>
+ <div class="stat"><small>🎖 BADGES</small><strong id="badgeCount">0</strong></div>
+</div>
+<nav class="tabs">
+ <button class="tab active" data-screen="learn">📚 Learn ABC</button>
+ <button class="tab" data-screen="find">🔎 Find Letter</button>
+ <button class="tab" data-screen="quiz">🎮 Quiz</button>
+ <button class="tab" data-screen="memory">🧠 Memory</button>
+ <button class="tab" data-screen="rewards">🏅 Rewards</button>
+</nav>
+
+<section class="screen active" id="learn">
+ <div class="panel">
+  <div class="teacher">🐱</div>
+  <div class="teacherText" id="teacherText">Hello! I am Mimi. Let's learn ABC! 💖</div>
+  <div class="letter" id="bigLetter">A a</div>
+  <div class="picture" id="picture">🍎</div>
+  <div class="word" id="word">A FOR APPLE</div>
+  <div class="phonics" id="phonics">A says /æ/!</div>
+  <div class="actions">
+   <button class="btn blue" id="hearLetter">🔊 Letter Sound</button>
+   <button class="btn green" id="hearWord">🗣 Say the Word</button>
+   <button class="btn yellow" id="learnReward">⭐ I Learned It!</button>
+  </div>
+  <div class="actions">
+   <button class="btn purple" id="previous">⬅ Previous</button>
+   <button class="btn" id="next">Next ➡</button>
+   <button class="btn green" id="autoLearn">▶ Auto Learn</button>
+  </div>
+  <div class="progressWrap"><div class="progress" id="learnProgress"></div></div>
+  <p id="position">Letter 1 of 26</p>
+ </div>
+ <h3 class="gridTitle">🌈 Choose Your Favorite Letter</h3>
+ <div class="alphabetGrid" id="alphabetGrid"></div>
+</section>
+
+<section class="screen" id="find">
+ <div class="panel">
+  <div class="teacher">🐱</div>
+  <h2 class="sectionTitle">Find the Letter!</h2>
+  <p class="description">Listen to Mimi and choose the correct letter.</p>
+  <div class="question" id="findQuestion">Find the letter A!</div>
+  <div class="quizPicture" id="findPicture">🍎</div>
+  <button class="btn blue" id="repeatFind">🔊 Listen Again</button>
+  <div class="options" id="findOptions"></div>
+  <div class="feedback" id="findFeedback">💖 You can do it!</div>
+  <button class="btn green" id="nextFind">Next Challenge ➡</button>
+ </div>
+</section>
+
+<section class="screen" id="quiz">
+ <div class="panel">
+  <div class="teacher">🐱</div>
+  <h2 class="sectionTitle">Mimi's ABC Quiz!</h2>
+  <p class="description">Look at the picture and choose its first letter.</p>
+  <div class="question" id="quizQuestion">Which letter is for Apple?</div>
+  <div class="quizPicture" id="quizPicture">🍎</div>
+  <div class="options" id="quizOptions"></div>
+  <div class="feedback" id="quizFeedback">🌟 Choose the correct answer!</div>
+  <button class="btn green" id="nextQuiz" style="display:none">Next Question ➡</button>
+  <button class="btn yellow" id="restartQuiz">🔄 Restart Quiz</button>
+ </div>
+</section>
+
+<section class="screen" id="memory">
+ <div class="panel">
+  <div class="teacher">🐱</div>
+  <h2 class="sectionTitle">ABC Memory Match</h2>
+  <p class="description">Match the alphabet with its picture!</p>
+  <p>Pairs found: <strong id="pairs">0</strong> / 4</p>
+  <div class="memoryGrid" id="memoryGrid"></div>
+  <div class="feedback" id="memoryFeedback">Find matching pairs! 💕</div>
+  <button class="btn yellow" id="restartMemory">🔄 New Game</button>
+ </div>
+</section>
+
+<section class="screen" id="rewards">
+ <div class="panel">
+  <div class="teacher">🐱</div>
+  <h2 class="sectionTitle">Mimi's Trophy Room</h2>
+  <p class="description">Keep learning to unlock magical badges!</p>
+  <div class="badges" id="badges"></div>
+  <div class="feedback" id="rewardMessage">You are a little superstar! ⭐</div>
+ </div>
+</section>
+
+<div class="footer">💖 Created for little learners everywhere!<br>MIMI'S MAGICAL ABC WORLD • 2026</div>
+</div>
+
+<div class="modal" id="modal">
+ <div class="modalBox">
+  <h2 id="modalTitle">🎉 AMAZING!</h2>
+  <p id="modalText">You did it!</p>
+  <button class="btn green" id="closeModal">Continue Playing 💖</button>
+ </div>
+</div>
+
+<script>
+const alphabet=[
+ {l:"A",w:"Apple",p:"🍎",s:"short a"},
+ {l:"B",w:"Ball",p:"⚽",s:"buh"},
+ {l:"C",w:"Cat",p:"🐱",s:"kuh"},
+ {l:"D",w:"Dog",p:"🐶",s:"duh"},
+ {l:"E",w:"Elephant",p:"🐘",s:"short e"},
+ {l:"F",w:"Fish",p:"🐟",s:"fuh"},
+ {l:"G",w:"Grapes",p:"🍇",s:"guh"},
+ {l:"H",w:"House",p:"🏠",s:"huh"},
+ {l:"I",w:"Ice Cream",p:"🍦",s:"short i"},
+ {l:"J",w:"Juice",p:"🧃",s:"juh"},
+ {l:"K",w:"Kite",p:"🪁",s:"kuh"},
+ {l:"L",w:"Lion",p:"🦁",s:"luh"},
+ {l:"M",w:"Monkey",p:"🐵",s:"muh"},
+ {l:"N",w:"Nest",p:"🪺",s:"nuh"},
+ {l:"O",w:"Orange",p:"🍊",s:"short o"},
+ {l:"P",w:"Penguin",p:"🐧",s:"puh"},
+ {l:"Q",w:"Queen",p:"👑",s:"kwuh"},
+ {l:"R",w:"Rabbit",p:"🐰",s:"ruh"},
+ {l:"S",w:"Sun",p:"☀️",s:"sss"},
+ {l:"T",w:"Tiger",p:"🐯",s:"tuh"},
+ {l:"U",w:"Umbrella",p:"☂️",s:"short u"},
+ {l:"V",w:"Van",p:"🚐",s:"vuh"},
+ {l:"W",w:"Whale",p:"🐳",s:"wuh"},
+ {l:"X",w:"Xylophone",p:"🎼",s:"ks"},
+ {l:"Y",w:"Yo-Yo",p:"🪀",s:"yuh"},
+ {l:"Z",w:"Zebra",p:"🦓",s:"zuh"}
+];
+
+const $=id=>document.getElementById(id);
+function readStorage(key,fallback){
+ try{const value=localStorage.getItem(key);return value===null?fallback:JSON.parse(value)}
+ catch(e){return fallback}
+}
+let current=0;
+let stars=readStorage("mimiStars",0);
+let learned=new Set(readStorage("mimiLearned",[]));
+let score=0,currentFind=null,currentQuiz=null;
+let findAnswered=false,quizAnswered=false,autoTimer=null;
+let musicOn=false,musicTimer=null,audioContext=null,musicGain=null,musicStep=0;
+let memoryCards=[],flipped=[],matched=0,memoryLock=false,memoryTimer=null;
+
+const badgeList=[
+ {name:"First Letter",icon:"🌟",check:()=>learned.size>=1},
+ {name:"ABC Explorer",icon:"🔤",check:()=>learned.size>=5},
+ {name:"Letter Champion",icon:"🏆",check:()=>learned.size>=13},
+ {name:"Alphabet Master",icon:"👑",check:()=>learned.size>=26},
+ {name:"Quiz Star",icon:"🎯",check:()=>score>=5},
+ {name:"Super Genius",icon:"💎",check:()=>score>=15}
+];
+
+function save(){
+ try{
+  localStorage.setItem("mimiStars",JSON.stringify(stars));
+  localStorage.setItem("mimiLearned",JSON.stringify([...learned]));
+ }catch(e){}
+}
+function updateStats(){
+ $("stars").textContent=stars;
+ $("learned").textContent=learned.size+"/26";
+ $("score").textContent=score;
+ $("badgeCount").textContent=badgeList.filter(b=>b.check()).length;
+ $("learnProgress").style.width=(learned.size/26*100)+"%";
+ save();renderBadges();
+}
+function speak(text){
+ if(!("speechSynthesis" in window))return;
+ speechSynthesis.cancel();
+ const u=new SpeechSynthesisUtterance(text);
+ u.lang="en-US";u.rate=.82;u.pitch=1.2;u.volume=1;
+ speechSynthesis.speak(u);
+}
+function sound(freq=700,duration=.13){
+ try{
+  audioContext=audioContext||new(window.AudioContext||window.webkitAudioContext)();
+  if(audioContext.state==="suspended")audioContext.resume();
+  const o=audioContext.createOscillator(),g=audioContext.createGain();
+  o.connect(g);g.connect(audioContext.destination);
+  o.type="sine";o.frequency.value=freq;
+  g.gain.setValueAtTime(.07,audioContext.currentTime);
+  g.gain.exponentialRampToValueAtTime(.001,audioContext.currentTime+duration);
+  o.start();o.stop(audioContext.currentTime+duration);
+ }catch(e){}
+}
+function cheer(){sound(660,.1);setTimeout(()=>sound(880,.1),100);setTimeout(()=>sound(1100,.2),200)}
+function confetti(){
+ const icons=["⭐","💖","🌈","✨","🎉","💎"];
+ for(let i=0;i<25;i++){
+  const el=document.createElement("div");el.className="confetti";
+  el.textContent=icons[Math.floor(Math.random()*icons.length)];
+  el.style.left=Math.random()*100+"vw";
+  el.style.animationDelay=Math.random()*.7+"s";
+  document.body.appendChild(el);setTimeout(()=>el.remove(),3500);
+ }
+}
+function popup(title,message){
+ $("modalTitle").textContent=title;$("modalText").textContent=message;
+ $("modal").style.display="flex";confetti();cheer();
+}
+$("closeModal").onclick=()=>{$("modal").style.display="none"};
+
+function renderBadges(){
+ const box=$("badges");if(!box)return;box.innerHTML="";
+ badgeList.forEach(b=>{
+  const unlocked=b.check(),div=document.createElement("div");
+  div.className="badgeCard"+(unlocked?"":" locked");
+  div.innerHTML="<span>"+b.icon+"</span><strong>"+b.name+"</strong><br><small>"+(unlocked?"UNLOCKED":"LOCKED")+"</small>";
+  box.appendChild(div);
+ });
+}
+function createGrid(){
+ $("alphabetGrid").innerHTML="";
+ alphabet.forEach((a,i)=>{
+  const b=document.createElement("button");
+  b.className="letterBtn";b.textContent=a.l;b.id="letterBtn"+i;
+  b.onclick=()=>{stopAuto();current=i;showLetter()};
+  $("alphabetGrid").appendChild(b);
+ });
+}
+function showLetter(){
+ const a=alphabet[current];
+ $("bigLetter").textContent=a.l+" "+a.l.toLowerCase();
+ $("picture").textContent=a.p;
+ $("word").textContent=a.l+" FOR "+a.w.toUpperCase();
+ $("phonics").textContent=a.l+" says "+a.s+"!";
+ $("position").textContent="Letter "+(current+1)+" of 26";
+ $("teacherText").textContent=[
+  "Let's learn a new letter! 💖","You're doing amazing! 🌟",
+  "Wonderful learning, superstar! ✨","Mimi is proud of you! 🐱"
+ ][current%4];
+ document.querySelectorAll(".letterBtn").forEach((b,i)=>{
+  b.classList.toggle("selected",i===current);
+  b.classList.toggle("learned",learned.has(i));
+ });
+ $("learnProgress").style.width=((current+1)/26*100)+"%";
+}
+function learnCurrent(){
+ if(!learned.has(current)){
+  learned.add(current);stars+=2;updateStats();showLetter();
+  speak("Wonderful! You learned "+alphabet[current].l+" for "+alphabet[current].w);
+  cheer();
+  if(learned.size===26)setTimeout(()=>popup("👑 ALPHABET MASTER!","You learned all 26 letters! Mimi is so proud!"),500);
+ }else{speak("Amazing! You already know this letter!");sound(850,.12)}
+}
+$("hearLetter").onclick=()=>{
+ const a=alphabet[current];speak(a.l+". "+a.s);sound(700,.1);
+};
+$("hearWord").onclick=()=>{
+ const a=alphabet[current];speak(a.l+" for "+a.w);sound(900,.12);
+};
+$("learnReward").onclick=learnCurrent;
+$("next").onclick=()=>{
+ stopAuto();if(current<25)current++;
+ else{popup("🌈 AMAZING!","You reached the last letter!");return}
+ showLetter();sound(750);
+};
+$("previous").onclick=()=>{
+ stopAuto();if(current>0)current--;
+ showLetter();sound(550);
+};
+function stopAuto(){
+ if(autoTimer){clearInterval(autoTimer);autoTimer=null}
+ $("autoLearn").textContent="▶ Auto Learn";
+}
+$("autoLearn").onclick=()=>{
+ if(autoTimer){stopAuto();return}
+ $("autoLearn").textContent="⏸ Stop Learning";
+ function step(){
+  showLetter();speak(alphabet[current].l+" for "+alphabet[current].w);
+  if(current>=25){stopAuto();return}
+  current++;
+ }
+ step();autoTimer=setInterval(step,3500);
+};
+document.querySelectorAll(".tab").forEach(tab=>{
+ tab.onclick=()=>{
+  stopAuto();
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  tab.classList.add("active");$(tab.dataset.screen).classList.add("active");
+  if(tab.dataset.screen==="find")newFind();
+  if(tab.dataset.screen==="quiz")newQuiz();
+  if(tab.dataset.screen==="memory"&&memoryCards.length===0)newMemory();
+ };
+});
+function shuffle(arr){return [...arr].sort(()=>Math.random()-.5)}
+function newFind(){
+ findAnswered=false;currentFind=alphabet[Math.floor(Math.random()*26)];
+ $("findQuestion").textContent="Find the letter "+currentFind.l+"!";
+ $("findPicture").textContent=currentFind.p;
+ $("findFeedback").textContent="💖 Listen carefully!";
+ const choices=shuffle([currentFind,...shuffle(alphabet.filter(a=>a.l!==currentFind.l)).slice(0,3)]);
+ $("findOptions").innerHTML="";
+ choices.forEach(a=>{
+  const b=document.createElement("button");b.className="option";b.textContent=a.l;
+  b.onclick=()=>{
+   if(findAnswered)return;findAnswered=true;
+   if(a.l===currentFind.l){
+    b.classList.add("correct");$("findFeedback").textContent="🎉 Perfect! You found it!";
+    stars++;score++;updateStats();cheer();speak("Correct! Great job!");confetti();
+   }else{
+    b.classList.add("wrong");$("findFeedback").textContent="💖 The answer is "+currentFind.l+". Try again!";
+    [...$("findOptions").children].forEach(x=>{if(x.textContent===currentFind.l)x.classList.add("correct")});
+    sound(250,.2);speak("Good try! The correct letter is "+currentFind.l);
+   }
+   [...$("findOptions").children].forEach(x=>x.disabled=true);
+  };
+  $("findOptions").appendChild(b);
+ });
+}
+$("repeatFind").onclick=()=>{if(currentFind)speak("Find the letter "+currentFind.l)};
+$("nextFind").onclick=newFind;
+
+function newQuiz(){
+ quizAnswered=false;currentQuiz=alphabet[Math.floor(Math.random()*26)];
+ $("quizQuestion").textContent="Which letter is for "+currentQuiz.w+"?";
+ $("quizPicture").textContent=currentQuiz.p;
+ $("quizFeedback").textContent="🌟 Choose the correct answer!";
+ $("nextQuiz").style.display="none";
+ const choices=shuffle([currentQuiz,...shuffle(alphabet.filter(a=>a.l!==currentQuiz.l)).slice(0,3)]);
+ $("quizOptions").innerHTML="";
+ choices.forEach(a=>{
+  const b=document.createElement("button");b.className="option";b.textContent=a.l;
+  b.onclick=()=>{
+   if(quizAnswered)return;quizAnswered=true;
+   if(a.l===currentQuiz.l){
+    b.classList.add("correct");$("quizFeedback").textContent="🎉 Brilliant! Correct answer!";
+    score++;stars+=2;updateStats();cheer();confetti();
+    speak("Wonderful! "+currentQuiz.l+" for "+currentQuiz.w);
+   }else{
+    b.classList.add("wrong");$("quizFeedback").textContent="💖 Correct answer: "+currentQuiz.l;
+    [...$("quizOptions").children].forEach(x=>{if(x.textContent===currentQuiz.l)x.classList.add("correct")});
+    sound(250,.2);speak("Good try! The correct letter is "+currentQuiz.l);
+   }
+   [...$("quizOptions").children].forEach(x=>x.disabled=true);
+   $("nextQuiz").style.display="inline-block";
+  };
+  $("quizOptions").appendChild(b);
+ });
+}
+$("nextQuiz").onclick=newQuiz;
+$("restartQuiz").onclick=()=>{score=0;updateStats();newQuiz()};
+
+function newMemory(){
+ clearTimeout(memoryTimer);matched=0;flipped=[];memoryLock=false;
+ $("pairs").textContent="0";$("memoryFeedback").textContent="Find four matching pairs! 💕";
+ const selected=shuffle(alphabet).slice(0,4);
+ memoryCards=shuffle(selected.flatMap(a=>[
+  {value:a.l,match:a.l,type:"letter"},{value:a.p,match:a.l,type:"picture"}
+ ]));
+ $("memoryGrid").innerHTML="";
+ memoryCards.forEach((card,i)=>{
+  const b=document.createElement("button");b.className="memoryCard";b.textContent="?";
+  b.dataset.index=i;b.onclick=()=>flipCard(i,b);$("memoryGrid").appendChild(b);
+ });
+}
+function flipCard(i,button){
+ if(memoryLock||button.classList.contains("flipped")||button.classList.contains("matched"))return;
+ button.classList.add("flipped");button.textContent=memoryCards[i].value;
+ flipped.push({i,button,card:memoryCards[i]});sound(600,.08);
+ if(flipped.length===2){
+  memoryLock=true;const [a,b]=flipped;
+  if(a.card.match===b.card.match&&a.card.type!==b.card.type){
+   a.button.classList.add("matched");b.button.classList.add("matched");
+   matched++;$("pairs").textContent=matched;stars+=3;updateStats();
+   $("memoryFeedback").textContent="🌟 Perfect match!";cheer();flipped=[];memoryLock=false;
+   if(matched===4)setTimeout(()=>popup("🧠 MEMORY MASTER!","You matched all four pairs! Amazing!"),350);
+  }else{
+   $("memoryFeedback").textContent="Try another pair! 💖";
+   memoryTimer=setTimeout(()=>{
+    a.button.classList.remove("flipped");b.button.classList.remove("flipped");
+    a.button.textContent="?";b.button.textContent="?";flipped=[];memoryLock=false;
+   },900);
+  }
+ }
+}
+$("restartMemory").onclick=newMemory;
+
+const notes=[523.25,659.25,783.99,659.25,587.33,698.46,880,698.46];
+function startMusic(){
+ try{
+  audioContext=audioContext||new(window.AudioContext||window.webkitAudioContext)();
+  audioContext.resume();musicGain=audioContext.createGain();
+  musicGain.gain.value=.035;musicGain.connect(audioContext.destination);
+  musicOn=true;$("musicBtn").textContent="🎵 MUSIC ON";
+  musicTimer=setInterval(()=>{
+   if(!musicOn)return;
+   const o=audioContext.createOscillator(),g=audioContext.createGain();
+   o.type="sine";o.frequency.value=notes[musicStep++%notes.length];
+   g.gain.setValueAtTime(.6,audioContext.currentTime);
+   g.gain.exponentialRampToValueAtTime(.001,audioContext.currentTime+.35);
+   o.connect(g);g.connect(musicGain);
+   o.start();o.stop(audioContext.currentTime+.36);
+  },420);
+ }catch(e){}
+}
+function stopMusic(){
+ musicOn=false;clearInterval(musicTimer);
+ if(musicGain){try{musicGain.disconnect()}catch(e){}}
+ $("musicBtn").textContent="🔇 MUSIC OFF";
+}
+$("musicBtn").onclick=()=>musicOn?stopMusic():startMusic();
+
+createGrid();showLetter();updateStats();renderBadges();newMemory();
+</script>
+</body>
+</html>
